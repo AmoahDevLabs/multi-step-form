@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useUserStore } from "@/stores/formStore";
 
 const userStore = useUserStore();
@@ -7,6 +7,20 @@ const emit = defineEmits(["update:currentForm"]);
 
 const firstName = ref("");
 const lastName = ref("");
+
+// Function to initialize form fields with values from the store if they exist
+const initializeFormFields = () => {
+  if (userStore.userInfo.firstName) {
+    firstName.value = userStore.userInfo.firstName;
+  }
+  if (userStore.userInfo.lastName) {
+    lastName.value = userStore.userInfo.lastName;
+  }
+};
+
+onMounted(() => {
+  initializeFormFields();
+});
 
 const handleSubmit = () => {
   // dispatch the updateUserInfo action to update the userInfo object in the state
