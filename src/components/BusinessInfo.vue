@@ -1,12 +1,20 @@
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from "@/stores/formStore";
+import { initializeFormFields } from "@/utils/formFieldsMap";
 
 const userStore = useUserStore();
 const emit = defineEmits(["update:currentForm"]);
 
 const businessName = ref("");
 const businessType = ref("");
+
+const fieldMap = {
+  businessName,
+  businessType,
+};
+
+initializeFormFields(fieldMap, userStore);
 
 const handleSubmit = () => {
   // dispatch the updateUserInfo action to update the userInfo object in the state
