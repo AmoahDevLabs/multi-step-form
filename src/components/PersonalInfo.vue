@@ -1,12 +1,21 @@
 <script setup>
 import { ref } from "vue";
+import { useUserStore } from "@/stores/formStore";
 
+const userStore = useUserStore();
 const emit = defineEmits(["update:currentForm"]);
 
 const firstName = ref("");
 const lastName = ref("");
 
 const handleSubmit = () => {
+  // dispatch the updateUserInfo action to update the userInfo object in the state
+
+  userStore.updateUserInfo({
+    firstName: firstName.value,
+    lastName: lastName.value,
+  });
+
   // Emit event to notify parent component to move to the next form section
   emit("update:currentForm", 2);
 };
@@ -23,6 +32,7 @@ const handleSubmit = () => {
           id="firstName"
           v-model="firstName"
           class="input input-bordered w-full max-w-xs dark:bg-white dark:text-black"
+          required
         />
       </div>
       <div>
@@ -32,10 +42,11 @@ const handleSubmit = () => {
           id="lastName"
           v-model="lastName"
           class="input input-bordered w-full max-w-xs dark:bg-white dark:text-black"
+          required
         />
       </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">Next</button>
     </form>
   </div>
 </template>

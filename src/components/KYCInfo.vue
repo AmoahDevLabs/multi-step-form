@@ -1,15 +1,21 @@
 <script setup>
 import { ref } from "vue";
+import { useUserStore } from "@/stores/formStore";
 
+const userStore = useUserStore();
 const emit = defineEmits(["update:currentForm"]);
+
 const identificationNumber = ref("");
 const issueDate = ref("");
 
 const handleSubmit = () => {
-  // this will be handled later
-  console.log("Submission completed");
+  // dispatch the updateUserInfo action to update the userInfo object in the state
+  userStore.updateUserInfo({
+    identificationNumber: identificationNumber.value,
+    issueDate: issueDate.value,
+  });
+  alert("Your information has been saved");
 };
-
 const goToPreviousForm = () => {
   // Emit event to notify parent component to move to   the previous form section
   emit("update:currentForm", 2);
@@ -29,6 +35,7 @@ const goToPreviousForm = () => {
           id="identificationNumber"
           v-model="identificationNumber"
           class="input input-bordered w-full max-w-xs dark:bg-white dark:text-black"
+          required
         />
       </div>
       <div>
@@ -38,6 +45,7 @@ const goToPreviousForm = () => {
           id="issueDate"
           v-model="issueDate"
           class="input input-bordered w-full max-w-xs dark:bg-white dark:text-black"
+          required
         />
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
