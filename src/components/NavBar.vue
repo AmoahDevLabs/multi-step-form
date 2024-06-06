@@ -20,7 +20,12 @@
       </button>
     </div>
     <div class="flex-1">
-      <a class="btn btn-ghost text-xl">Multi Step Form</a>
+      <router-link to="/" class="btn btn-ghost text-xl"
+        >Multi Step Form</router-link
+      >
+      <router-link :to="{ name: 'add-customer' }" class="btn btn-ghost text-l"
+        >Add Customer</router-link
+      >
     </div>
     <div class="flex-none">
       <button class="btn btn-square btn-ghost">

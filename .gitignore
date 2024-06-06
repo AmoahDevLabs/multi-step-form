@@ -29,3 +29,6 @@ package-lock.json
 *.sw?
 
 *.tsbuildinfo
+
+# Local customers data
+backend/formData.json

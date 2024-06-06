@@ -16,5 +16,16 @@ export const useUserStore = defineStore("user", {
     updateUserInfo(newData) {
       this.userInfo = { ...this.userInfo, ...newData };
     },
+
+    resetUserInfo() {
+      this.userInfo = {
+        firstName: "",
+        lastName: "",
+        businessName: "",
+        businessType: "",
+        identificationNumber: "",
+        issueDate: "",
+      };
+    },
   },
 });

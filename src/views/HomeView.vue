@@ -1,26 +1,43 @@
 <script setup>
-import { ref, computed } from "vue";
-import PersonalInfo from "@/components/PersonalInfo.vue";
-import BusinessInfo from "@/components/BusinessInfo.vue";
-import KYCInfo from "@/components/KYCInfo.vue";
+import { ref, onMounted } from "vue";
+import axios from "axios";
 
-const currentForm = ref(1);
+const formData = ref([]);
 
-const components = {
-  1: PersonalInfo,
-  2: BusinessInfo,
-  3: KYCInfo,
+const fetchData = async () => {
+  try {
+    const response = await axios.get("/form-data");
+    formData.value = response.data;
+  } catch (error) {
+    console.error("Error fetching form data:", error);
+  }
 };
 
-const currentComponent = computed(() => components[currentForm.value]);
-
-const updateCurrentForm = (value) => {
-  currentForm.value = value;
-};
+onMounted(() => {
+  fetchData();
+});
 </script>
 
 <template>
-  <main class="bg-gray-100">
-    <Component :is="currentComponent" @update:currentForm="updateCurrentForm" />
-  </main>
+  <div class="overflow-x-auto">
+    <table class="table">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Business Name</th>
+          <th>Identification Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in formData" :key="index">
+          <th>{{ index + 1 }}</th>
+          <td>{{ item.firstName }} {{ item.lastName }}</td>
+          <td>{{ item.businessName }}</td>
+          <td>{{ item.identificationNumber }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>

@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import axios from "axios";
 import { useUserStore } from "@/stores/formStore";
 import { initializeFormFields } from "@/utils/formFieldsMap";
 
@@ -17,9 +18,7 @@ const fieldMap = {
 
 initializeFormFields(fieldMap, userStore);
 
-const handleSubmit = () => {
-  // dispatch the updateUserInfo action to update the userInfo object in the state
-
+const handleSubmit = async () => {
   userStore.updateUserInfo({
     firstName: firstName.value,
     lastName: lastName.value,

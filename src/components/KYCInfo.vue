@@ -1,8 +1,11 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import axios from "axios";
 import { useUserStore } from "@/stores/formStore";
 import { initializeFormFields } from "@/utils/formFieldsMap";
 
+const router = useRouter();
 const userStore = useUserStore();
 const emit = defineEmits(["update:currentForm"]);
 
@@ -16,14 +19,21 @@ const fieldMap = {
 
 initializeFormFields(fieldMap, userStore);
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   // dispatch the updateUserInfo action to update the userInfo object in the state
   userStore.updateUserInfo({
     identificationNumber: identificationNumber.value,
     issueDate: issueDate.value,
   });
-  alert("Your information has been saved");
+  try {
+    await axios.post("/submit-form", userStore.userInfo);
+    userStore.resetUserInfo();
+    router.push("/");
+  } catch (error) {
+    console.error("Error saving data", error);
+  }
 };
+
 const goToPreviousForm = () => {
   // Emit event to notify parent component to move to   the previous form section
   emit("update:currentForm", 2);
