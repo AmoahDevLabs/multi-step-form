@@ -1,6 +1,6 @@
 # Vue.js Multiform Step Form
 
-This project is a Vue.js application that implements a multi-step form for collecting personal, business, and KYC (Know Your Customer) information. It allows users to enter their information step by step, save it to a backend server, and display the collected data in a tabular format. The project is built using Vue 3 and Vite for the frontend, and a simple Node.js server to handle backend operations.
+This project is a Vue.js application that implements a multi-step form for collecting personal, business, and KYC (Know Your Customer) information. It allows users to enter their information step by step, save it to a backend server, and display the collected data in a tabular format. The project is built using Vue 3 and Vite for the frontend, Pinia for state management and a simple Node.js server to handle backend operations.
 
 ## Recommended IDE Setup
 
@@ -36,3 +36,7 @@ npm start
 ```sh
 npm run build
 ```
+
+### Credit
+
+The base branch of this project was built on a blog post by [Onyenekwe Elizabeth](https://blog.openreplay.com/multipart-forms-with-vue-and-pinia/)
